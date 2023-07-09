@@ -30,6 +30,14 @@ export class Mood {
   hunger: number;
   attention: number;
   dirtiness: number;
+
+  constructor(happiness: number, toilet: number, hunger: number, attention: number, dirtiness: number) {
+    this.happiness = happiness;
+    this.toilet = toilet;
+    this.hunger = hunger;
+    this.attention = attention;
+    this.dirtiness = dirtiness;
+  }
 }
 
 export enum Spirit {
