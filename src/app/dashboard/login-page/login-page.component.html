@@ -1,1 +1,18 @@
-<p>login-page works!</p>
+<div class="container">
+  <h1 class="title">Pixel Pets</h1>
+  <h2 class="login">Login</h2>
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <div class="form-group">
+    <app-basic-button [label]="'Login'" [onClick]="onLoginClick"></app-basic-button>
+  </div>
+  <div class="form-group">
+    <app-basic-button [label]="'Sign Up'" [onClick]="onSignUpClick"></app-basic-button>
+  </div>
+</div>

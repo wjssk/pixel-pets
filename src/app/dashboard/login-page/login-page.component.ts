@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
+  constructor(private router: Router) { }
+  ngOnInit(): void {
+    console.log("LoginPageComponent");
+  }
 
+  onLoginClick(): void {
+    // Here you should validate your login
+    // if validation passes navigate to home
+    this.router.navigate(['/home']);
+  }
+
+  onSignUpClick(): void {
+    this.router.navigate(['/signup']);
+  }
 }
