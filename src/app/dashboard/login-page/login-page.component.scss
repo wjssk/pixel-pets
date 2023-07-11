@@ -5,12 +5,6 @@
   align-items: center;
 }
 
-@font-face {
-  font-family: 'CustomFont';
-  src: url('src/assets/fonts/BACKTO1982.TTF') format('truetype');
-  /* Add additional font styles if necessary */
-}
-
 .container h2 {
   font-family: 'CustomFont', sans-serif;
 }
