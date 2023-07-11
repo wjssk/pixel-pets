@@ -1,1 +1,4 @@
-<p>walk works!</p>
+<div class="map-container" #mapContainer>
+  <img [src]="mapSource" alt="Map">
+  <img class="user-image" [src]="userSource" alt="User" [style.transform]="'translate(-50%, -50%) translate(' + userPositionX + 'px, ' + userPositionY + 'px)'">
+</div>

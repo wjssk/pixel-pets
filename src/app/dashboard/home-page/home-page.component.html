@@ -39,7 +39,7 @@
         <app-basic-button [label]="'Activities'" (click)="showActivities = !showActivities"></app-basic-button>
       </div>
       <div class="activities" *ngIf="showActivities">
-        <app-basic-button [label]="'Walk'"></app-basic-button>
+        <app-basic-button [label]="'Walk'" (onClick)="onWalk()"></app-basic-button>
         <app-basic-button [label]="'Feed'"></app-basic-button>
         <app-basic-button [label]="'Drink'"></app-basic-button>
         <app-basic-button [label]="'Sleep'"></app-basic-button>

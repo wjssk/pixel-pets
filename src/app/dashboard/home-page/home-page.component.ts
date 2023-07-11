@@ -1,4 +1,5 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +17,8 @@ export class HomePageComponent {
   petStartTime: Date | null = null;
   petting = false;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef,
+              private router: Router) {}
 
   onPet(): void {
     this.petStartTime = new Date();
@@ -55,5 +57,9 @@ export class HomePageComponent {
 
   ngOnInit(): void {
     console.log("HomePageComponent");
+  }
+
+  onWalk(): void {
+    this.router.navigate(['/walk']);
   }
 }
