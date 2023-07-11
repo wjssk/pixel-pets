@@ -1,46 +1,21 @@
 import { Component } from '@angular/core';
 import Phaser from 'phaser';
-@Component({
-  selector: 'app-walk',
-  templateUrl: './walk.component.html',
-  styleUrls: ['./walk.component.scss']
-})
-export class WalkComponent {
-  private game!: Phaser.Game;
+
+class MyScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private map!: Phaser.GameObjects.TileSprite;
 
   constructor() {
-  }
-  ngOnInit(): void {
-    const config: Phaser.Types.Core.GameConfig = {
-      type: Phaser.AUTO,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      parent: 'gameContainer',
-      physics: {
-        default: 'arcade',
-        arcade: {
-          gravity: { y: 0 }
-        }
-      },
-      scene: {
-        preload: this.preload,
-        create: this.create,
-        update: this.update
-      }
-    };
-
-    this.game = new Phaser.Game(config);
+    super('MyScene');
   }
 
-  preload(): void {
+  preload() {
     this.load.image('map', 'assets/images/laka.jpg');
     this.load.image('player', 'assets/images/postac.jpg');
   }
 
-  create(): void {
+  create() {
     this.map = this.add.tileSprite(0, 0, 2000, 2000, 'map');
     this.cameras.main.setBounds(0, 0, this.map.width, this.map.height);
     this.cameras.main.centerOn(0, 0);
@@ -48,10 +23,10 @@ export class WalkComponent {
     this.player = this.physics.add.sprite(0, 0, 'player');
     this.cameras.main.startFollow(this.player, true);
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input!.keyboard!.createCursorKeys();
   }
 
-  update(): void {
+  override update() {
     const speed = 200;
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-speed);
@@ -68,6 +43,33 @@ export class WalkComponent {
     } else {
       this.player.setVelocityY(0);
     }
+  }
+}
+
+@Component({
+  selector: 'app-walk',
+  templateUrl: './walk.component.html',
+  styleUrls: ['./walk.component.scss']
+})
+export class WalkComponent {
+  private game!: Phaser.Game;
+
+  ngOnInit(): void {
+    const config: Phaser.Types.Core.GameConfig = {
+      type: Phaser.AUTO,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      parent: 'gameContainer',
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 0 }
+        }
+      },
+      scene: MyScene
+    };
+
+    this.game = new Phaser.Game(config);
   }
 
   ngOnDestroy(): void {
