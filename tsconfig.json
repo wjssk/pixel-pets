@@ -2,6 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -22,6 +24,10 @@
     "lib": [
       "ES2022",
       "dom"
+    ],
+    "types": [
+      "jasmine",
+      "node"
     ]
   },
   "angularCompilerOptions": {
@@ -29,5 +35,8 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
 }
