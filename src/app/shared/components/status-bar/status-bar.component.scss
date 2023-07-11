@@ -1,0 +1,15 @@
+.status-bar {
+  width: 100%;
+  background-color: #ddd;
+  border: 1px solid black;
+  height: 20px;
+}
+
+.status-bar-inner {
+  background-color: #4CAF50;
+  height: 100%;
+}
+
+.status-label {
+  margin-left: 10px;
+}
