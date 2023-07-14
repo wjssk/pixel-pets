@@ -1,30 +1,32 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-import {Router} from "@angular/router";
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent {
   showSettings: boolean = false;
   showStatuses: boolean = false;
   showActivities: boolean = false;
-  imageSource: string = 'assets/images/smutny.jpg';
+  imageSource: string = 'assets/images/smutnyPapiez.png';
   timer: any;
   coins = 0;
   lastCoinTime: Date | null = null;
   petStartTime: Date | null = null;
   petting = false;
 
-  constructor(private cd: ChangeDetectorRef,
-              private router: Router) {}
+  constructor(
+    private cd: ChangeDetectorRef,
+    private router: Router,
+  ) {}
 
   onPet(): void {
     this.petStartTime = new Date();
     this.petting = true;
     this.timer = setTimeout(() => {
-      this.imageSource = 'assets/images/szczesliwy.jpg';
+      this.imageSource = 'assets/images/wesoly.png';
     }, 750); //
   }
 
@@ -32,7 +34,7 @@ export class HomePageComponent {
     this.petting = false;
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.imageSource = 'assets/images/smutny.jpg';
+      this.imageSource = 'assets/images/smutnyPapiez.png';
     }, 500);
     console.log(this.petStartTime);
     if (this.petStartTime) {
@@ -56,7 +58,7 @@ export class HomePageComponent {
   }
 
   ngOnInit(): void {
-    console.log("HomePageComponent");
+    console.log('HomePageComponent');
   }
 
   onWalk(): void {

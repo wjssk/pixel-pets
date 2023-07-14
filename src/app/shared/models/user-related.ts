@@ -5,7 +5,13 @@ export class User {
   level: number;
   xp: number;
 
-  constructor(username: string, id: number, email: string, level: number, xp: number) {
+  constructor(
+    username: string,
+    id: number,
+    email: string,
+    level: number,
+    xp: number,
+  ) {
     this.username = username;
     this.id = id;
     this.email = email;
@@ -33,7 +39,13 @@ export class Mood {
   attention: number;
   dirtiness: number;
 
-  constructor(happiness: number, toilet: number, hunger: number, attention: number, dirtiness: number) {
+  constructor(
+    happiness: number,
+    toilet: number,
+    hunger: number,
+    attention: number,
+    dirtiness: number,
+  ) {
     this.happiness = happiness;
     this.toilet = toilet;
     this.hunger = hunger;
@@ -46,7 +58,7 @@ export enum Spirit {
   PLAYFUL = "I'm feeling playful!",
   TIRED = "I'm so tired...",
   HAPPY = "I'm so happy!",
-  WALK = "I could go for a walk...",
+  WALK = 'I could go for a walk...',
   HUNGRY = "I'm hungry!",
-  BATH = "I could use a bath..."
+  BATH = 'I could use a bath...',
 }

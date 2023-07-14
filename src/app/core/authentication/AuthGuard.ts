@@ -1,14 +1,24 @@
-import {inject, Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
-import {AuthService} from "./AuthService";
+import { inject, Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { AuthService } from './AuthService';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 class PermissionsService {
-
-  constructor(private router: Router, private authService: AuthService) {}
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): boolean {
     if (this.authService.checkLogin() || this.authService.rememberMe()) {
       // If the user is logged in or clicked "remember me", navigate to the home page.
       this.router.navigate(['/home']);
@@ -20,6 +30,9 @@ class PermissionsService {
   }
 }
 
-export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+export const AuthGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): boolean => {
   return inject(PermissionsService).canActivate(next, state);
-}
+};

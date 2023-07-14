@@ -1,9 +1,3 @@
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -12,12 +6,16 @@ body {
   position: relative;
 }
 
-.top-section, .bottom-section {
+.top-section,
+.bottom-section {
   display: flex;
   justify-content: space-between;
 }
 
-.level, .settings-button, .status-section, .activities-section {
+.level,
+.settings-button,
+.status-section,
+.activities-section {
   width: 10%;
 }
 
@@ -25,11 +23,14 @@ body {
   text-align: center;
 }
 
-.settings, .statuses, .activities {
+.settings,
+.statuses,
+.activities {
   position: absolute;
 }
 
-.statuses, .activities {
+.statuses,
+.activities {
   bottom: 0;
   display: flex;
   flex-direction: column-reverse;
@@ -46,11 +47,10 @@ body {
 }
 
 .pet-img {
-  width: 35vw;
-  height: 70vh;
+  width: 25vw;
+  height: 75vh;
   object-fit: cover;
 }
-
 
 .img-container {
   position: fixed;
@@ -62,4 +62,3 @@ body {
 .list-btn {
   margin-bottom: 30px;
 }
-

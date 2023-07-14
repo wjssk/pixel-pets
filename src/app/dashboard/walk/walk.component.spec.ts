@@ -8,7 +8,7 @@ describe('WalkComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WalkComponent]
+      declarations: [WalkComponent],
     });
     fixture = TestBed.createComponent(WalkComponent);
     component = fixture.componentInstance;

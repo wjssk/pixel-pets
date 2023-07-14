@@ -1,12 +1,18 @@
-import {Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import Phaser from 'phaser';
-import {GameScene} from "./scenes/game.scene";
-
+import { GameScene } from './scenes/game.scene';
 
 @Component({
   selector: 'app-walk',
   templateUrl: './walk.component.html',
-  styleUrls: ['./walk.component.scss']
+  styleUrls: ['./walk.component.scss'],
 })
 export class WalkComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('gameContainer', { static: true }) gameContainer!: ElementRef;
@@ -20,10 +26,10 @@ export class WalkComponent implements OnInit, OnDestroy, AfterViewInit {
       physics: {
         default: 'arcade',
         arcade: {
-          debug: false
-        }
+          debug: false,
+        },
       },
-      parent: 'gameContainer'
+      parent: 'gameContainer',
     };
   }
 
