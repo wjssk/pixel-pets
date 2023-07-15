@@ -28,16 +28,110 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
 .title {
   font-family: '8bitBold', sans-serif;
   text-align: center;
-  font-size: calc(1rem + 2vw);
+  font-size: calc(4vw + 4vh);
+  color: $text-fill;
+  text-shadow:
+    -2px -2px 0 $text-border,
+    2px -2px 0 $text-border,
+    -2px 2px 0 $text-border,
+    2px 2px 0 $text-border,
+    3px 3px 10px rgba(148, 84, 0, 0.7);
 }
 
 .login {
   font-family: '8bit', sans-serif;
   font-size: 150%;
+  color: $text-fill;
+  text-shadow:
+    -1px -1px 0 $text-border,
+    1px -1px 0 $text-border,
+    -1px 1px 0 $text-border,
+    1px 1px 0 $text-border,
+    3px 3px 10px rgba(148, 84, 0, 0.7);
 }
+
+//.login-btn {
+//  background-image: url('/assets/images/btn.png');
+//  background-size: contain;
+//  background-repeat: no-repeat;
+//  width: 100px; /* adjust to the width of your image */
+//  height: 50px; /* adjust to the height of your image */
+//  border: none;
+//  cursor: pointer;
+//}
+
+.main-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25vw;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.5); /* change the color as you like */
+  border-radius: 15px; /* rounds the corners of the form */
+  padding: 20px; /* creates some space between the form content and the form border */
+}
+
+.input-field input {
+  width: 100%; /* makes the inputs take up the entire width of their container */
+  font-family: '8bit', sans-serif; /* replace with the actual name of your pixel font */
+  border: 2px solid #000; /* gives the inputs a pixel-like border */
+  border-radius: 0; /* makes the inputs have square corners */
+  padding: 5px; /* creates some space inside the inputs */
+}
+
+.buttons {
+  font-size: 13px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.input-field, .remember-me, .forgot-password {
+  margin-bottom: 1vh;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1vh; /* adjust as needed */
+}
+
+.login-btn, .signup-btn {
+  width: 100%;
+  /* add your button styles here */
+}
+
+::placeholder { /* This selects all placeholders in the document */
+  font-family: '8bit', sans-serif; /* Replace 'CustomPixelFont' with the name of your font */
+  color: #999;
+}
+
+input::-webkit-input-placeholder { /* WebKit browsers (Safari, Chrome, etc) */
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  font-family: '8bit', sans-serif;
+  color: #999;
+  opacity: 1; /* Firefox lowers the opacity of placeholders by default, so you need to reset it */
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+

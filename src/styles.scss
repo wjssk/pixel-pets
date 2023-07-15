@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import '/node_modules/nes.css/css/nes.css';
+
 body {
   overflow: hidden;
   margin: 0;
@@ -6,6 +7,7 @@ body {
   image-rendering: pixelated;
   height: 100vh;
   width: 100vw;
+  font-family: '8bit', sans-serif;
 }
 
 @font-face {
