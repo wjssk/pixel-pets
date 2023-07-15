@@ -3,6 +3,9 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  image-rendering: pixelated;
+  height: 100vh;
+  width: 100vw;
 }
 
 @font-face {
@@ -11,6 +14,20 @@ body {
 }
 
 @font-face {
-  font-family: 'Test';
-  src: url('/assets/fonts/Caveat-VariableFont_wght.ttf') format('truetype');
+  font-family: 'Pixel';
+  src: url('/assets/fonts/Perfect DOS VGA 437 Win.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: '8bit';
+  src: url('/assets/fonts/8bitOperatorPlus8-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: '8bitBold';
+  src: url('/assets/fonts/8bitOperatorPlus8-Bold.ttf') format('truetype');
+}
+
+
+
+

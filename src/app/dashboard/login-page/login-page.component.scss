@@ -1,10 +1,43 @@
+@import "src/variables";
+
+:host {
+  position: relative;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
+:host::before {
+  content: "";
+  background-image: url('/assets/images/backgrounds/loginBackground.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.container h2 {
-  font-family: 'CustomFont', sans-serif;
+.title {
+  font-family: '8bitBold', sans-serif;
+  text-align: center;
+  font-size: calc(1rem + 2vw);
+}
+
+.login {
+  font-family: '8bit', sans-serif;
+  font-size: 150%;
 }

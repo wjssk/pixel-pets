@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 export class LoginPageComponent {
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    console.log('LoginPageComponent');
-  }
-
   onLoginClick(): void {
     // Here you should validate your login
     // if validation passes navigate to home

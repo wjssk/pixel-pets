@@ -1,13 +1,13 @@
 <div class="container">
-  <h1 class="title">Pixel Pets</h1>
-  <h2 class="login">Login</h2>
+  <h1 class="title">PIXEL PETS</h1>
+  <h2 class="login">LOGIN</h2>
   <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
+    <input type="text" id="username" name="username" placeholder="username" required />
+    <input type="password" id="password" name="password" placeholder="password" required />
   </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
+  <div class="remember-me">
+    <input type="checkbox" id="remember-me" name="remember-me" />
+    <label for="remember-me">Remember me</label>
   </div>
   <div class="form-group">
     <app-basic-button
@@ -17,7 +17,7 @@
   </div>
   <div class="form-group">
     <app-basic-button
-      [label]="'Sign Up'"
+      [label]="'Sign up'"
       (onClick)="onSignUpClick()"
     ></app-basic-button>
   </div>
