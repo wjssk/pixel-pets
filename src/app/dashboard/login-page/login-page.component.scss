@@ -36,58 +36,49 @@
   font-size: calc(4vw + 4vh);
   color: $text-fill;
   text-shadow:
-    -2px -2px 0 $text-border,
-    2px -2px 0 $text-border,
-    -2px 2px 0 $text-border,
-    2px 2px 0 $text-border,
-    3px 3px 10px rgba(148, 84, 0, 0.7);
+    -3px -3px 0 black,
+    3px -3px 0 black,
+    -3px 3px 0 black,
+    3px 3px 0 black,
+    7px 0px 1px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  padding: 1.5%;
 }
 
 .login {
   font-family: '8bit', sans-serif;
-  font-size: 150%;
+  font-size: calc(1.8vw + 1.8vh);
   color: $text-fill;
   text-shadow:
-    -1px -1px 0 $text-border,
-    1px -1px 0 $text-border,
-    -1px 1px 0 $text-border,
-    1px 1px 0 $text-border,
-    3px 3px 10px rgba(148, 84, 0, 0.7);
+    -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black,
+    4px 0px 1px rgba(0, 0, 0, 0.8);
 }
 
-//.login-btn {
-//  background-image: url('/assets/images/btn.png');
-//  background-size: contain;
-//  background-repeat: no-repeat;
-//  width: 100px; /* adjust to the width of your image */
-//  height: 50px; /* adjust to the height of your image */
-//  border: none;
-//  cursor: pointer;
-//}
+.nes-field, .nes-input {
+  width: 100%;
+}
+
+.nes-field:first-child {
+  margin-bottom: 2vh;
+}
+
+#password {
+  margin-bottom: 1.5vh;
+}
 
 .main-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25vw;
+  width: 30vw;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.5); /* change the color as you like */
-  border-radius: 15px; /* rounds the corners of the form */
-  padding: 20px; /* creates some space between the form content and the form border */
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
 }
-
-.input-field input {
-  width: 100%; /* makes the inputs take up the entire width of their container */
-  font-family: '8bit', sans-serif; /* replace with the actual name of your pixel font */
-  border: 2px solid #000; /* gives the inputs a pixel-like border */
-  border-radius: 0; /* makes the inputs have square corners */
-  padding: 5px; /* creates some space inside the inputs */
-}
-
-.buttons {
-  font-size: 13px;
-}
-
 
 .form-group {
   display: flex;
@@ -96,21 +87,44 @@
   width: 100%;
 }
 
-.input-field, .remember-me, .forgot-password {
-  margin-bottom: 1vh;
-}
-
 .buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 50%;
   gap: 1vh; /* adjust as needed */
 }
 
-.login-btn, .signup-btn {
+.nes-btn {
   width: 100%;
-  /* add your button styles here */
+}
+
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2vh;
+  font-size: 100%;
+}
+
+.bottom-section label {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-section label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.bottom-section input[type='checkbox'] {
+  vertical-align: middle;
+}
+
+.bottom-section label span {
+  vertical-align: middle;
 }
 
 ::placeholder { /* This selects all placeholders in the document */
