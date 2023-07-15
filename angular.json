@@ -29,7 +29,7 @@
               "src/assets/fonts/BACKTO1982.ttf",
               "src/assets/fonts/Caveat-VariableFont_wght.ttf"
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "node_modules/nes.css/css/nes.min.css"],
             "scripts": []
           },
           "configurations": {
@@ -89,7 +89,7 @@
               "src/assets/fonts/BACKTO1982.ttf",
               "src/assets/fonts/Caveat-VariableFont_wght.ttf"
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "node_modules/nes.css/css/nes.min.css"],
             "scripts": []
           }
         }
