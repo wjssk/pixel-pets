@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="top-section">
+    <app-status-bar
+      class="level"
+      [label]="'Level'"
+      [value]="30"
+    ></app-status-bar>
+    <h2 class="name">Name</h2>
+    <p>You have {{ coins }} coins.</p>
+    <app-basic-button
+      class="settings-button"
+      [label]="'Settings'"
+      (click)="showSettings = !showSettings"
+    ></app-basic-button>
+  </div>
+
+  <div class="settings" *ngIf="showSettings">
+    <app-basic-button [label]="'Sound'"></app-basic-button>
+    <app-basic-button [label]="'Change username'"></app-basic-button>
+    <app-basic-button [label]="'Change password'"></app-basic-button>
+    <app-basic-button [label]="'Delete account'"></app-basic-button>
+    <app-basic-button [label]="'Sign up for newsletter'"></app-basic-button>
+    <app-basic-button [label]="'Sign out'"></app-basic-button>
+  </div>
+
+  <div class="img-container">
+    <img
+      class="pet-img"
+      [src]="imageSource"
+      (mouseover)="onPet()"
+      (mouseout)="stopPet()"
+      alt="Pet"
+    />
+  </div>
+
+  <div class="bottom-section">
+    <div class="status-section">
+      <div class="list-btn">
+        <app-basic-button
+          [label]="'Statuses'"
+          (click)="showStatuses = !showStatuses"
+        ></app-basic-button>
+      </div>
+      <div class="statuses" *ngIf="showStatuses">
+        <app-status-bar [label]="'Happiness'" [value]="30"></app-status-bar>
+        <app-status-bar [label]="'Attention'" [value]="80"></app-status-bar>
+        <app-status-bar [label]="'Hunger'" [value]="50"></app-status-bar>
+        <app-status-bar [label]="'Thirst'" [value]="20"></app-status-bar>
+        <app-status-bar [label]="'Energy'" [value]="10"></app-status-bar>
+      </div>
+    </div>
+
+    <div class="activities-section">
+      <div class="list-btn">
+        <app-basic-button
+          [label]="'Activities'"
+          (click)="showActivities = !showActivities"
+        ></app-basic-button>
+      </div>
+      <div class="activities" *ngIf="showActivities">
+        <app-basic-button
+          [label]="'Walk'"
+          (onClick)="onWalk()"
+        ></app-basic-button>
+        <app-basic-button [label]="'Feed'"></app-basic-button>
+        <app-basic-button [label]="'Drink'"></app-basic-button>
+        <app-basic-button [label]="'Sleep'"></app-basic-button>
+        <app-basic-button [label]="'Play'"></app-basic-button>
+      </div>
+    </div>
+  </div>
+</div>

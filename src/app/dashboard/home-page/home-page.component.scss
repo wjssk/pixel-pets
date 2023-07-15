@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* this distributes your sections across the page */
+  height: 100vh;
+  position: relative;
+}
+
+.top-section,
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.level,
+.settings-button,
+.status-section,
+.activities-section {
+  width: 10%;
+}
+
+.name {
+  text-align: center;
+}
+
+.settings,
+.statuses,
+.activities {
+  position: absolute;
+}
+
+.statuses,
+.activities {
+  bottom: 0;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.statuses {
+  left: 0;
+  bottom: 50px;
+}
+
+.activities {
+  right: 0;
+  bottom: 30px;
+}
+
+.pet-img {
+  width: 25vw;
+  height: 75vh;
+  object-fit: cover;
+}
+
+.img-container {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%);
+}
+
+.list-btn {
+  margin-bottom: 30px;
+}

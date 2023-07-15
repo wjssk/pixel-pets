@@ -1,0 +1,25 @@
+<div class='container'>
+  <h1 class='title'>PIXEL PETS</h1>
+  <div class='main-form'>
+    <h2 class='login'>LOGIN</h2>
+    <form class='form-group'>
+      <div class="nes-field">
+        <input type="text" id="username" class="nes-input" placeholder='USERNAME' required>
+      </div>
+      <div class='nes-field'>
+        <input type='password' id='password' class='nes-input' placeholder='PASSWORD' required />
+      </div>
+      <label>
+        <input type="checkbox" class="nes-checkbox" checked />
+        <span>Remember me</span>
+      </label>
+      <div class='forgot-password'>
+        <a href='#'>Forgot password?</a>
+      </div>
+    </form>
+    <div class='buttons'>
+      <button type='button' class='nes-btn login-btn' (click)='onLoginClick()'>Login</button>
+      <button class='nes-btn signup-btn' (click)='onSignUpClick()'>Sign up</button>
+    </div>
+  </div>
+</div>
