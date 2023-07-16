@@ -11,6 +11,7 @@ import { SignUpComponent } from './dashboard/sign-up/sign-up.component';
 import { BasicButtonComponent } from './shared/components/basic-button/basic-button.component';
 import { StatusBarComponent } from './shared/components/status-bar/status-bar.component';
 import { WalkComponent } from './dashboard/walk/walk.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { WalkComponent } from './dashboard/walk/walk.component';
     StatusBarComponent,
     WalkComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, StoreModule.forRoot({}, {})],
   providers: [],
   bootstrap: [AppComponent],
 })
