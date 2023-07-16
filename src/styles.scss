@@ -11,6 +11,31 @@ body {
   min-font-size: 16px;
 }
 
+.nes-btn {
+  font-family: '8bit', sans-serif;
+}
+
+::placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+input::-webkit-input-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+input::-moz-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
 @font-face {
   font-family: 'PixelTitle';
   src: url('/assets/fonts/BACKTO1982.ttf') format('truetype');
