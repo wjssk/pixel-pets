@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TestService } from '../../services/test.service';
-import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../../services/user-service.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,21 +8,34 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
+  loginForm = {
+    username: '',
+    password: '',
+  };
+  rememberMe = true;
+
   constructor(
+    private userService: UserService,
     private router: Router,
-    private testService: TestService,
   ) {}
-
-  ngOnInit(): void {
-    this.testService.testBackendConnection().subscribe((response) => {
-      console.log(response);
-    });
-  }
-
   onLoginClick(): void {
-    // Here you should validate your login
-    // if validation passes navigate to home
-    this.router.navigate(['/home']);
+    this.userService
+      .loginUser(this.loginForm.username, this.loginForm.password)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          // Store the token
+          if (this.rememberMe) {
+            localStorage.setItem('token', res.token);
+          } else {
+            sessionStorage.setItem('token', res.token);
+          }
+          this.router.navigate(['/home']);
+        },
+        (err) => {
+          console.error(err);
+        },
+      );
   }
 
   onSignUpClick(): void {

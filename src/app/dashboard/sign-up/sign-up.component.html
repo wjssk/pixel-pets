@@ -1,18 +1,18 @@
 <div class='container'>
   <h2>SIGN UP</h2>
-  <form class='form-group'>
+  <form class='form-group' (submit)="onSignup()" #form="ngForm">
     <div class='nes-field'>
-      <input type='text' id='email' class='nes-input' placeholder='email' required>
+      <input [(ngModel)]="signupForm.email" name="email" type='text' id='email' class='nes-input' placeholder='email' required>
     </div>
     <div class='nes-field'>
-      <input type='text' id='username' class='nes-input' placeholder='username' required>
+      <input [(ngModel)]="signupForm.username" name="username" type='text' id='username' class='nes-input' placeholder='username' required>
     </div>
     <div class='nes-field'>
-      <input type='password' id='password' class='nes-input' placeholder='password' required />
+      <input [(ngModel)]="signupForm.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" name="password" type='password' id='password' class='nes-input' placeholder='password' required />
     </div>
     <div class='nes-field'>
-      <input type='password' id='password-confirm' class='nes-input' placeholder='confirm password' required />
+      <input [(ngModel)]="signupForm.confirmPassword" name="confirmPassword" type='password' id='password-confirm' class='nes-input' placeholder='confirm password' required />
     </div>
+    <button type='submit' class='nes-btn signup-btn'>Sign up</button>
   </form>
-  <button type='button' class='nes-btn signup-btn'>Sign up</button>
 </div>

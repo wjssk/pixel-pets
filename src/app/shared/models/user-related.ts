@@ -1,22 +1,22 @@
 export class User {
   username: string;
-  id: number;
   email: string;
   level: number;
   xp: number;
+  coins: number;
 
   constructor(
     username: string,
-    id: number,
     email: string,
     level: number,
     xp: number,
+    coins: number,
   ) {
     this.username = username;
-    this.id = id;
     this.email = email;
     this.level = level;
     this.xp = xp;
+    this.coins = coins;
   }
 }
 

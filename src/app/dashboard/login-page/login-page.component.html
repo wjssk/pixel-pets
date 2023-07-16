@@ -2,16 +2,16 @@
   <h1 class='title'>PIXEL PETS</h1>
   <div class='main-form'>
     <h2 class='login'>LOGIN</h2>
-    <form class='form-group'>
+    <form class='form-group' #form="ngForm">
       <div class='nes-field'>
-        <input type='text' id='username' class='nes-input' placeholder='username' required>
+        <input [(ngModel)]="loginForm.username" name='username' type='text' id='username' class='nes-input' placeholder='username' required>
       </div>
       <div class='nes-field'>
-        <input type='password' id='password' class='nes-input' placeholder='password' required />
+        <input [(ngModel)]="loginForm.password" name='password' type='password' id='password' class='nes-input' placeholder='password' required />
       </div>
       <div class='bottom-section'>
         <label>
-          <input type='checkbox' class='nes-checkbox' checked />
+          <input [(ngModel)]="rememberMe" type='checkbox' class='nes-checkbox' checked />
           <span>Remember me</span>
         </label>
         <a href='#'>Forgot password?</a>
