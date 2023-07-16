@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TestService } from '../../services/test.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',
@@ -7,7 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private testService: TestService,
+  ) {}
+
+  ngOnInit(): void {
+    this.testService.testBackendConnection().subscribe((response) => {
+      console.log(response);
+    });
+  }
 
   onLoginClick(): void {
     // Here you should validate your login
