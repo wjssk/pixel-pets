@@ -1,0 +1,52 @@
+@import "src/variables";
+
+:host::before {
+  content: "";
+  background-image: url('/assets/images/backgrounds/loginBackground.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 6%;
+  width: 30vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+h2 {
+  font-size: calc(1.8vw + 1.8vh);
+  color: $text-fill;
+  text-shadow: -2px -2px 0 black,
+  2px -2px 0 black,
+  -2px 2px 0 black,
+  2px 2px 0 black,
+  4px 0px 1px rgba(0, 0, 0, 0.8);
+}
+
+.nes-field {
+  margin-bottom: 3vh;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.nes-btn {
+  width: 50%;
+}

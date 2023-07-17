@@ -7,7 +7,29 @@ body {
   image-rendering: pixelated;
   height: 100vh;
   width: 100vw;
+  font-family: '8bit', sans-serif !important;
+  min-font-size: 16px;
+}
+
+::placeholder {
   font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+input::-webkit-input-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+}
+
+input::-moz-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+  font-family: '8bit', sans-serif;
+  color: #999;
 }
 
 @font-face {

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app-component/app.component';
@@ -9,6 +11,7 @@ import { SignUpComponent } from './dashboard/sign-up/sign-up.component';
 import { BasicButtonComponent } from './shared/components/basic-button/basic-button.component';
 import { StatusBarComponent } from './shared/components/status-bar/status-bar.component';
 import { WalkComponent } from './dashboard/walk/walk.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,13 @@ import { WalkComponent } from './dashboard/walk/walk.component';
     StatusBarComponent,
     WalkComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    StoreModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
