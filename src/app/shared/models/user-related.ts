@@ -4,6 +4,8 @@ export class User {
   level: number;
   xp: number;
   coins: number;
+  hasPet: boolean;
+  pet: Pet;
 
   constructor(
     username: string,
@@ -11,23 +13,25 @@ export class User {
     level: number,
     xp: number,
     coins: number,
+    hasPet: boolean,
+    pet: Pet,
   ) {
     this.username = username;
     this.email = email;
     this.level = level;
     this.xp = xp;
     this.coins = coins;
+    this.hasPet = hasPet;
+    this.pet = pet;
   }
 }
 
 export class Pet {
   name: string;
-  owner: User;
   mood: Mood;
 
-  constructor(name: string, owner: User, mood: Mood) {
+  constructor(name: string, mood: Mood) {
     this.name = name;
-    this.owner = owner;
     this.mood = mood;
   }
 }

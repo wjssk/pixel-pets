@@ -23,7 +23,13 @@ import { StoreModule } from '@ngrx/store';
     StatusBarComponent,
     WalkComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, StoreModule.forRoot({}, {})],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    StoreModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

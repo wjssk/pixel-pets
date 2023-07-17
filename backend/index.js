@@ -1,6 +1,7 @@
 const express = require('express');
-const userRoutes = require('./routes/userRoutes');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -18,9 +19,10 @@ mongoose
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Use Routes
-app.use('/api/users', userRoutes);
+app.use(authRoutes);
 
 const port = process.env.PORT || 3000;
 
