@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user-service.service';
-import { User } from '../../shared/models/user-related';
-
+import { register } from '../../state/auth/auth.actions';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -15,29 +15,23 @@ export class SignUpComponent {
     confirmPassword: '',
   };
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+  ) {}
 
   onSignup() {
-    // if (this.signupForm.password === this.signupForm.confirmPassword) {
-    //   let user: User = new User(
-    //     this.signupForm.username,
-    //     this.signupForm.email,
-    //     1,
-    //     0,
-    //     100,
-    //     false,
-    //     null,
-    //   );
-    //   this.userService.registerUser(user, this.signupForm.password).subscribe(
-    //     (res) => {
-    //       console.log(res); // Successfully registered user {username}
-    //     },
-    //     (err) => {
-    //       console.error(err); // An error occurred
-    //     },
-    //   );
-    // } else {
-    //   console.error('Passwords do not match!');
-    // }
+    if (this.signupForm.password !== this.signupForm.confirmPassword) {
+      alert('Passwords do not match.');
+    } else {
+      this.store.dispatch(
+        register({
+          username: this.signupForm.username,
+          email: this.signupForm.email,
+          password: this.signupForm.password,
+        }),
+      );
+      this.router.navigate(['/login']);
+    }
   }
 }

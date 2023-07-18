@@ -10,7 +10,7 @@ export class HomePageComponent {
   showSettings: boolean = false;
   showStatuses: boolean = false;
   showActivities: boolean = false;
-  imageSource: string = 'assets/images/smutnyPapiez.png';
+  imageSource: string = 'assets/images/smutny.png';
   timer: any;
   coins = 0;
   lastCoinTime: Date | null = null;
@@ -26,7 +26,7 @@ export class HomePageComponent {
     this.petStartTime = new Date();
     this.petting = true;
     this.timer = setTimeout(() => {
-      this.imageSource = 'assets/images/wesoly.png';
+      this.imageSource = 'assets/images/wesoly.jpg';
     }, 750); //
   }
 
@@ -34,7 +34,7 @@ export class HomePageComponent {
     this.petting = false;
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.imageSource = 'assets/images/smutnyPapiez.png';
+      this.imageSource = 'assets/images/smutny.png';
     }, 500);
     console.log(this.petStartTime);
     if (this.petStartTime) {

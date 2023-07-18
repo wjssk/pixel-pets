@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../shared/models/user-related';
 import { Observable } from 'rxjs';
+import { User } from '../../shared/models/user-related';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private apiUrl = '/api/users';

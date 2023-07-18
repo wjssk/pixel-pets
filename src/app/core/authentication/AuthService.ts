@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { User } from '../../shared/models/user-related';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -7,13 +10,25 @@ export class AuthService {
   isLoggedIn = false;
   rememberMeChecked = false;
 
-  checkLogin() {
-    // Here, you would check the actual login status. For now, return the dummy value.
-    return this.isLoggedIn;
+  constructor(private http: HttpClient) {}
+
+  login(
+    username: string,
+    password: string,
+    rememberMe: boolean,
+  ): Observable<User> {
+    return this.http.post<User>('/api/login', {
+      username,
+      password,
+      rememberMe,
+    });
   }
 
-  rememberMe() {
-    // Here, you would check the actual "remember me" status. For now, return the dummy value.
-    return this.rememberMeChecked;
+  register(
+    username: string,
+    email: string,
+    password: string,
+  ): Observable<User> {
+    return this.http.post<User>('/api/register', { username, email, password });
   }
 }
