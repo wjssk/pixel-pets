@@ -31,7 +31,6 @@ export class SignUpComponent {
           password: this.signupForm.password,
         }),
       );
-      this.router.navigate(['/login']);
     }
   }
 }

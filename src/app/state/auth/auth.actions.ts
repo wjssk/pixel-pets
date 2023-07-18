@@ -15,3 +15,18 @@ export const registerFailure = createAction(
   '[Auth] Register User Failure',
   props<{ error: any }>(),
 );
+
+export const login = createAction(
+  '[Auth] Login User',
+  props<{ username: string; password: string; rememberMe: boolean }>(),
+);
+
+export const loginSuccess = createAction(
+  '[Auth] Login User Success',
+  props<{ user: User }>(),
+);
+
+export const loginFailure = createAction(
+  '[Auth] Login User Failure',
+  props<{ error: any }>(),
+);

@@ -22,14 +22,6 @@ const handleErrors = (err) => {
     return errors;
   }
 
-  if (err.message === 'Incorrect username') {
-    errors.username = 'Username does not exist';
-  }
-
-  if (err.message === 'Incorrect password') {
-    errors.password = 'Password is incorrect';
-  }
-
   return errors;
 };
 
@@ -84,8 +76,7 @@ exports.loginUser = async (req, res) => {
     });
     res.status(200).json({ user: user._id });
   } catch (error) {
-    const errors = handleErrors(error);
-    res.status(400).json({ errors });
+    res.status(400).json({ error });
   }
 };
 
@@ -93,4 +84,21 @@ exports.logoutUser = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
   res.status(200).json({ logout: true });
+};
+
+exports.isAuthenticated = (req, res) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.secret, async (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.status(400).json({ isAuthenticated: false });
+      } else {
+        const user = await User.findById(decodedToken.id);
+        res.status(200).json({ isAuthenticated: true, user });
+      }
+    });
+  } else {
+    res.status(400).json({ isAuthenticated: false });
+  }
 };

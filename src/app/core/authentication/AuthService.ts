@@ -5,11 +5,6 @@ import { User } from '../../shared/models/user-related';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // This is a dummy example. In a real app, you would check this data
-  // from a secure source, not a local variable.
-  isLoggedIn = false;
-  rememberMeChecked = false;
-
   constructor(private http: HttpClient) {}
 
   login(
@@ -30,5 +25,9 @@ export class AuthService {
     password: string,
   ): Observable<User> {
     return this.http.post<User>('/api/register', { username, email, password });
+  }
+
+  checkAuthStatus(): Observable<any> {
+    return this.http.get('/api/check-auth');
   }
 }
