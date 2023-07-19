@@ -23,8 +23,14 @@ export class AuthService {
     username: string,
     email: string,
     password: string,
+    confirmPassword: string,
   ): Observable<User> {
-    return this.http.post<User>('/api/register', { username, email, password });
+    return this.http.post<User>('/api/register', {
+      username,
+      email,
+      password,
+      confirmPassword,
+    });
   }
 
   checkAuthStatus(): Observable<any> {

@@ -4,7 +4,12 @@ import { AuthErrors } from '../models/state';
 
 export const register = createAction(
   '[Auth] Register User',
-  props<{ username: string; email: string; password: string }>(),
+  props<{
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }>(),
 );
 
 export const registerSuccess = createAction(

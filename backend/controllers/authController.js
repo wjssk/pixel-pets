@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User, Pet, Mood } = require('../models/user');
 const bcrypt = require('bcryptjs');
+const { isEmail } = require('validator');
 const validatePassword = (password) => {
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
   return regex.test(password);
@@ -29,9 +30,13 @@ const handleErrors = (err, customErrors) => {
 };
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
 
   let errors = initializeErrors();
+
+  if (password !== confirmPassword) {
+    errors.password = 'Passwords do not match';
+  }
 
   if (!validatePassword(password)) {
     errors.password =
@@ -47,6 +52,18 @@ exports.registerUser = async (req, res) => {
 
   if (existingEmail) {
     errors.email = 'Email already exists';
+  }
+
+  if (!username) {
+    errors.username = "Username can't be empty";
+  }
+
+  if (!email) {
+    errors.email = "Email can't be empty";
+  }
+
+  if (!isEmail(email)) {
+    errors.email = 'Invalid email';
   }
 
   if (errors.username || errors.email || errors.password) {

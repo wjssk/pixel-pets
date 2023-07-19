@@ -23,40 +23,43 @@ export class SignUpComponent {
   emailError$: Observable<string | undefined> = of(undefined);
   passwordError$: Observable<string | undefined> = of(undefined);
 
+  formSubmitted = false;
+
   constructor(
     private router: Router,
     private store: Store<AppState>,
   ) {}
 
   onSignup() {
+    this.formSubmitted = true;
+
     const errors$ = this.store.pipe(
       select(selectAuthErrors),
       tap((errors) => console.log('errors from selector:', errors)),
     );
+
     this.usernameError$ = errors$.pipe(
       map((errors) => errors?.username),
       tap((usernameError) => console.log('username error:', usernameError)),
     );
+
     this.emailError$ = errors$.pipe(
       map((errors) => errors?.email),
       tap((emailError) => console.log('email error:', emailError)),
     );
+
     this.passwordError$ = errors$.pipe(
       map((errors) => errors?.password),
-      tap((passwordError) =>
-        console.log('password error inside sign up:', passwordError),
-      ),
+      tap((passwordError) => console.log('password error:', passwordError)),
     );
-    if (this.signupForm.password !== this.signupForm.confirmPassword) {
-      alert('Passwords do not match.');
-    } else {
-      this.store.dispatch(
-        register({
-          username: this.signupForm.username,
-          email: this.signupForm.email,
-          password: this.signupForm.password,
-        }),
-      );
-    }
+
+    this.store.dispatch(
+      register({
+        username: this.signupForm.username,
+        email: this.signupForm.email,
+        password: this.signupForm.password,
+        confirmPassword: this.signupForm.confirmPassword,
+      }),
+    );
   }
 }

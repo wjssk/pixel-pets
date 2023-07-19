@@ -21,14 +21,16 @@ export class AuthEffects {
       ofType(register),
       mergeMap((action) =>
         this.authService
-          .register(action.username, action.email, action.password)
+          .register(
+            action.username,
+            action.email,
+            action.password,
+            action.confirmPassword,
+          )
           .pipe(
             map((user) => registerSuccess({ user })),
             catchError((error) => {
               console.error(error);
-              console.log(
-                'error.error.errors.password: ' + error.error.errors.password,
-              );
               const errors: AuthErrors = {
                 username: error.error.errors.username,
                 email: error.error.errors.email,
