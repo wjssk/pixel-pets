@@ -13,7 +13,7 @@ export const authReducer = createReducer(
   initialState,
   on(register, (state) => ({ ...state, error: null })),
   on(registerSuccess, (state, { user }) => ({ ...state, user })),
-  on(registerFailure, (state, { error }) => ({ ...state, error })),
+  on(registerFailure, (state, { error }) => ({ ...state, errors: error })),
   on(login, (state) => ({ ...state, error: null })),
   on(loginSuccess, (state, { user }) => ({ ...state, user })),
   on(loginFailure, (state, { error }) => ({ ...state, error })),

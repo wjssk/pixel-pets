@@ -6,30 +6,52 @@ const validatePassword = (password) => {
   return regex.test(password);
 };
 
-const handleErrors = (err) => {
-  console.log(err.message, err.code);
-  let errors = { username: '', email: '', password: '' };
+const initializeErrors = () => ({
+  username: '',
+  email: '',
+  password: '',
+  login: '',
+});
 
-  if (err.message.includes('User validation failed')) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message;
-    });
-  }
+const handleErrors = (err, customErrors) => {
+  console.log(err.message, err.code);
+  let errors = customErrors || initializeErrors();
 
   if (err.code === 11000) {
-    errors.username = 'Username already exists';
-    errors.email = 'Email already exists';
-    return errors;
+    if (err.message.includes('username')) {
+      errors.username = 'Username already exists';
+    }
+    if (err.message.includes('email')) {
+      errors.email = 'Email already exists';
+    }
   }
-
   return errors;
 };
 
 exports.registerUser = async (req, res) => {
   const { username, email, password } = req.body;
 
+  let errors = initializeErrors();
+
   if (!validatePassword(password)) {
-    res.status(400).json({ error: 'Invalid password format.' });
+    errors.password =
+      'Password has to have at least: 5 characters, 1 lower- and uppercase letter and 1 digit.';
+  }
+
+  const existingUsername = await User.findOne({ username });
+  const existingEmail = await User.findOne({ email });
+
+  if (existingUsername) {
+    errors.username = 'Username already exists';
+  }
+
+  if (existingEmail) {
+    errors.email = 'Email already exists';
+  }
+
+  if (errors.username || errors.email || errors.password) {
+    console.log(errors);
+    res.status(400).json({ errors });
     return;
   }
 
@@ -49,22 +71,27 @@ exports.registerUser = async (req, res) => {
     });
     res.status(201).json({ user: user._id });
   } catch (error) {
-    const errors = handleErrors(error);
+    errors = handleErrors(error, errors);
     res.status(400).json({ errors });
   }
 };
 
 exports.loginUser = async (req, res) => {
   const { username, password, rememberMe } = req.body;
+  let errors = initializeErrors();
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      throw Error('Incorrect username');
+      errors.login = 'Incorrect username or password';
+      res.status(400).json({ errors });
+      return;
     }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
-      throw Error('Incorrect password');
+      errors.login = 'Incorrect username or password';
+      res.status(400).json({ errors });
+      return;
     }
     const maxAge = rememberMe ? 7 * 24 * 60 * 60 : 5 * 60 * 60; // 7 days or 5 hour
     const token = jwt.sign({ id: user._id }, process.env.secret, {
@@ -76,7 +103,8 @@ exports.loginUser = async (req, res) => {
     });
     res.status(200).json({ user: user._id });
   } catch (error) {
-    res.status(400).json({ error });
+    errors = handleErrors(error, errors);
+    res.status(400).json({ errors });
   }
 };
 

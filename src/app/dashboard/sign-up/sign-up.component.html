@@ -15,4 +15,13 @@
     </div>
     <button type='submit' class='nes-btn signup-btn'>Sign up</button>
   </form>
+  <div *ngIf="emailError$ | async as error" class="error-message">
+    {{ error }}
+  </div>
+  <div *ngIf="usernameError$ | async as error" class="error-message">
+    {{ error }}
+  </div>
+  <div *ngIf="passwordError$ | async as error" class="error-message">
+    {{ error }}
+  </div>
 </div>

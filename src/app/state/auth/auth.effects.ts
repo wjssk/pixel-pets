@@ -12,6 +12,7 @@ import {
 import { AuthService } from '../../core/authentication/AuthService';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthErrors } from '../models/state';
 
 @Injectable()
 export class AuthEffects {
@@ -23,7 +24,18 @@ export class AuthEffects {
           .register(action.username, action.email, action.password)
           .pipe(
             map((user) => registerSuccess({ user })),
-            catchError((error) => of(registerFailure({ error }))),
+            catchError((error) => {
+              console.error(error);
+              console.log(
+                'error.error.errors.password: ' + error.error.errors.password,
+              );
+              const errors: AuthErrors = {
+                username: error.error.errors.username,
+                email: error.error.errors.email,
+                password: error.error.errors.password,
+              };
+              return of(registerFailure({ error: errors }));
+            }),
           ),
       ),
     ),
@@ -48,7 +60,13 @@ export class AuthEffects {
           .login(action.username, action.password, action.rememberMe)
           .pipe(
             map((user) => loginSuccess({ user })),
-            catchError((error) => of(loginFailure({ error }))),
+            catchError((error) => {
+              console.error(error);
+              const errors: AuthErrors = {
+                login: error.error.errors.login,
+              };
+              return of(loginFailure({ error: errors }));
+            }),
           ),
       ),
     ),
