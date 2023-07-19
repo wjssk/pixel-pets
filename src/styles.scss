@@ -32,6 +32,11 @@ input:-ms-input-placeholder {
   color: #999;
 }
 
+.error-message {
+  color: red;
+  margin: 0;
+}
+
 @font-face {
   font-family: 'PixelTitle';
   src: url('/assets/fonts/BACKTO1982.ttf') format('truetype');

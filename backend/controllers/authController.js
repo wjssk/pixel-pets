@@ -1,43 +1,74 @@
 const jwt = require('jsonwebtoken');
 const { User, Pet, Mood } = require('../models/user');
 const bcrypt = require('bcryptjs');
+const { isEmail } = require('validator');
 const validatePassword = (password) => {
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
   return regex.test(password);
 };
 
-const handleErrors = (err) => {
-  console.log(err.message, err.code);
-  let errors = { username: '', email: '', password: '' };
+const initializeErrors = () => ({
+  username: '',
+  email: '',
+  password: '',
+  login: '',
+});
 
-  if (err.message.includes('User validation failed')) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message;
-    });
-  }
+const handleErrors = (err, customErrors) => {
+  console.log(err.message, err.code);
+  let errors = customErrors || initializeErrors();
 
   if (err.code === 11000) {
-    errors.username = 'Username already exists';
-    errors.email = 'Email already exists';
-    return errors;
+    if (err.message.includes('username')) {
+      errors.username = 'Username already exists';
+    }
+    if (err.message.includes('email')) {
+      errors.email = 'Email already exists';
+    }
   }
-
-  if (err.message === 'Incorrect username') {
-    errors.username = 'Username does not exist';
-  }
-
-  if (err.message === 'Incorrect password') {
-    errors.password = 'Password is incorrect';
-  }
-
   return errors;
 };
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
+
+  let errors = initializeErrors();
+
+  if (password !== confirmPassword) {
+    errors.password = 'Passwords do not match';
+  }
 
   if (!validatePassword(password)) {
-    res.status(400).json({ error: 'Invalid password format.' });
+    errors.password =
+      'Password has to have at least: 5 characters, 1 lower- and uppercase letter and 1 digit.';
+  }
+
+  const existingUsername = await User.findOne({ username });
+  const existingEmail = await User.findOne({ email });
+
+  if (existingUsername) {
+    errors.username = 'Username already exists';
+  }
+
+  if (existingEmail) {
+    errors.email = 'Email already exists';
+  }
+
+  if (!username) {
+    errors.username = "Username can't be empty";
+  }
+
+  if (!email) {
+    errors.email = "Email can't be empty";
+  }
+
+  if (!isEmail(email)) {
+    errors.email = 'Invalid email';
+  }
+
+  if (errors.username || errors.email || errors.password) {
+    console.log(errors);
+    res.status(400).json({ errors });
     return;
   }
 
@@ -57,22 +88,27 @@ exports.registerUser = async (req, res) => {
     });
     res.status(201).json({ user: user._id });
   } catch (error) {
-    const errors = handleErrors(error);
+    errors = handleErrors(error, errors);
     res.status(400).json({ errors });
   }
 };
 
 exports.loginUser = async (req, res) => {
   const { username, password, rememberMe } = req.body;
+  let errors = initializeErrors();
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      throw Error('Incorrect username');
+      errors.login = 'Incorrect username or password';
+      res.status(400).json({ errors });
+      return;
     }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
-      throw Error('Incorrect password');
+      errors.login = 'Incorrect username or password';
+      res.status(400).json({ errors });
+      return;
     }
     const maxAge = rememberMe ? 7 * 24 * 60 * 60 : 5 * 60 * 60; // 7 days or 5 hour
     const token = jwt.sign({ id: user._id }, process.env.secret, {
@@ -84,7 +120,7 @@ exports.loginUser = async (req, res) => {
     });
     res.status(200).json({ user: user._id });
   } catch (error) {
-    const errors = handleErrors(error);
+    errors = handleErrors(error, errors);
     res.status(400).json({ errors });
   }
 };
@@ -93,4 +129,21 @@ exports.logoutUser = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
   res.status(200).json({ logout: true });
+};
+
+exports.isAuthenticated = (req, res) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.secret, async (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.status(400).json({ isAuthenticated: false });
+      } else {
+        const user = await User.findById(decodedToken.id);
+        res.status(200).json({ isAuthenticated: true, user });
+      }
+    });
+  } else {
+    res.status(400).json({ isAuthenticated: false });
+  }
 };

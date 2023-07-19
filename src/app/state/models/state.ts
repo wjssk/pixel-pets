@@ -1,11 +1,25 @@
 import { User } from '../../shared/models/user-related';
 
-export interface State {
-  token: string | null;
-  user: User | null;
+export const initialState: AppState = {
+  auth: {
+    user: null,
+    errors: {},
+  },
+};
+export interface AppState {
+  auth: AuthState;
+  // add any other slices of state here
 }
 
-export const initialState: State = {
-  token: null,
-  user: null,
-};
+export interface AuthState {
+  user: User | null;
+  errors: AuthErrors;
+  // add any other properties here
+}
+
+export interface AuthErrors {
+  username?: string;
+  email?: string;
+  password?: string;
+  login?: string;
+}

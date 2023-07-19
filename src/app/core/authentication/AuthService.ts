@@ -1,19 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { User } from '../../shared/models/user-related';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // This is a dummy example. In a real app, you would check this data
-  // from a secure source, not a local variable.
-  isLoggedIn = false;
-  rememberMeChecked = false;
+  constructor(private http: HttpClient) {}
 
-  checkLogin() {
-    // Here, you would check the actual login status. For now, return the dummy value.
-    return this.isLoggedIn;
+  login(
+    username: string,
+    password: string,
+    rememberMe: boolean,
+  ): Observable<User> {
+    return this.http.post<User>('/api/login', {
+      username,
+      password,
+      rememberMe,
+    });
   }
 
-  rememberMe() {
-    // Here, you would check the actual "remember me" status. For now, return the dummy value.
-    return this.rememberMeChecked;
+  register(
+    username: string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Observable<User> {
+    return this.http.post<User>('/api/register', {
+      username,
+      email,
+      password,
+      confirmPassword,
+    });
+  }
+
+  checkAuthStatus(): Observable<any> {
+    return this.http.get('/api/check-auth');
   }
 }

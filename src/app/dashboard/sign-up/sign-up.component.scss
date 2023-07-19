@@ -23,7 +23,7 @@
   align-items: center;
   margin: auto;
   margin-top: 6%;
-  width: 30vw;
+  width: 40vw;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 15px;
   padding: 20px;
@@ -39,14 +39,12 @@ h2 {
   4px 0px 1px rgba(0, 0, 0, 0.8);
 }
 
-.nes-field {
-  margin-bottom: 3vh;
-}
-
 .form-group {
   width: 100%;
 }
 
 .nes-btn {
   width: 50%;
+  display: block;
+  margin: auto;
 }

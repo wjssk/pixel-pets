@@ -1,3 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
+import {
+  register,
+  registerSuccess,
+  registerFailure,
+  login,
+  loginSuccess,
+  loginFailure,
+} from './auth.actions';
 import { initialState } from '../models/state';
-import { loginSuccess } from './auth.effects';
+
+export const authReducer = createReducer(
+  initialState,
+  on(register, (state) => ({ ...state, error: null })),
+  on(registerSuccess, (state, { user }) => ({ ...state, user })),
+  on(registerFailure, (state, { error }) => ({ ...state, errors: error })),
+  on(login, (state) => ({ ...state, error: null })),
+  on(loginSuccess, (state, { user }) => ({ ...state, user })),
+  on(loginFailure, (state, { error }) => ({ ...state, errors: error })),
+);

@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user-service.service';
+import { select, State, Store } from '@ngrx/store';
+import { login } from '../../state/auth/auth.actions';
+import { Observable, of } from 'rxjs';
+import { AppState, AuthState } from '../../state/models/state';
+import { selectAuthErrors } from '../../state/auth/auth.selectors';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-page',
@@ -11,31 +16,28 @@ export class LoginPageComponent {
   loginForm = {
     username: '',
     password: '',
+    rememberMe: false,
   };
-  rememberMe = true;
+
+  loginError$: Observable<string | undefined> = of(undefined);
+
+  formSubmitted = false;
 
   constructor(
-    private userService: UserService,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
   onLoginClick(): void {
-    this.userService
-      .loginUser(this.loginForm.username, this.loginForm.password)
-      .subscribe(
-        (res) => {
-          console.log(res);
-          // Store the token
-          if (this.rememberMe) {
-            localStorage.setItem('token', res.token);
-          } else {
-            sessionStorage.setItem('token', res.token);
-          }
-          this.router.navigate(['/home']);
-        },
-        (err) => {
-          console.error(err);
-        },
-      );
+    this.formSubmitted = true;
+    const errors$ = this.store.pipe(
+      select(selectAuthErrors),
+      tap((errors) => console.log('errors from selector:', errors)),
+    );
+    this.loginError$ = errors$.pipe(
+      map((errors) => errors?.login),
+      tap((loginError) => console.log('login error:', loginError)),
+    );
+    this.store.dispatch(login(this.loginForm));
   }
 
   onSignUpClick(): void {

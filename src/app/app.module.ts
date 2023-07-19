@@ -12,6 +12,10 @@ import { BasicButtonComponent } from './shared/components/basic-button/basic-but
 import { StatusBarComponent } from './shared/components/status-bar/status-bar.component';
 import { WalkComponent } from './dashboard/walk/walk.component';
 import { StoreModule } from '@ngrx/store';
+import { authReducer } from './state/auth/auth.reducer';
+import { AuthEffects } from './state/auth/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { ChoosePetComponent } from './dashboard/choose-pet/choose-pet.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,15 @@ import { StoreModule } from '@ngrx/store';
     BasicButtonComponent,
     StatusBarComponent,
     WalkComponent,
+    ChoosePetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    StoreModule,
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

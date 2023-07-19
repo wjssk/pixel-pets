@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user-service.service';
-import { User } from '../../shared/models/user-related';
-
+import { register } from '../../state/auth/auth.actions';
+import { select, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { AppState, AuthErrors, AuthState } from '../../state/models/state';
+import { map, tap } from 'rxjs/operators';
+import { selectAuthErrors } from '../../state/auth/auth.selectors';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -15,29 +19,47 @@ export class SignUpComponent {
     confirmPassword: '',
   };
 
-  constructor(private userService: UserService) {}
+  usernameError$: Observable<string | undefined> = of(undefined);
+  emailError$: Observable<string | undefined> = of(undefined);
+  passwordError$: Observable<string | undefined> = of(undefined);
+
+  formSubmitted = false;
+
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+  ) {}
 
   onSignup() {
-    // if (this.signupForm.password === this.signupForm.confirmPassword) {
-    //   let user: User = new User(
-    //     this.signupForm.username,
-    //     this.signupForm.email,
-    //     1,
-    //     0,
-    //     100,
-    //     false,
-    //     null,
-    //   );
-    //   this.userService.registerUser(user, this.signupForm.password).subscribe(
-    //     (res) => {
-    //       console.log(res); // Successfully registered user {username}
-    //     },
-    //     (err) => {
-    //       console.error(err); // An error occurred
-    //     },
-    //   );
-    // } else {
-    //   console.error('Passwords do not match!');
-    // }
+    this.formSubmitted = true;
+
+    const errors$ = this.store.pipe(
+      select(selectAuthErrors),
+      tap((errors) => console.log('errors from selector:', errors)),
+    );
+
+    this.usernameError$ = errors$.pipe(
+      map((errors) => errors?.username),
+      tap((usernameError) => console.log('username error:', usernameError)),
+    );
+
+    this.emailError$ = errors$.pipe(
+      map((errors) => errors?.email),
+      tap((emailError) => console.log('email error:', emailError)),
+    );
+
+    this.passwordError$ = errors$.pipe(
+      map((errors) => errors?.password),
+      tap((passwordError) => console.log('password error:', passwordError)),
+    );
+
+    this.store.dispatch(
+      register({
+        username: this.signupForm.username,
+        email: this.signupForm.email,
+        password: this.signupForm.password,
+        confirmPassword: this.signupForm.confirmPassword,
+      }),
+    );
   }
 }
