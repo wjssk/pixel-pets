@@ -8,6 +8,8 @@ import {
   login,
   loginSuccess,
   loginFailure,
+  logout,
+  logoutSuccess,
 } from './auth.actions';
 import { AuthService } from '../../core/authentication/AuthService';
 import { of } from 'rxjs';
@@ -87,6 +89,20 @@ export class AuthEffects {
         }),
       ),
     { dispatch: false },
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logout),
+      mergeMap(() =>
+        this.authService.logout().pipe(
+          map(() => {
+            this.router.navigate(['/login']);
+            return logoutSuccess();
+          }),
+        ),
+      ),
+    ),
   );
   constructor(
     private actions$: Actions,

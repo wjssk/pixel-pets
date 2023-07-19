@@ -1,5 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppState } from '../../state/models/state';
+import { Store } from '@ngrx/store';
+import { logout } from '../../state/auth/auth.actions';
 
 @Component({
   selector: 'app-home-page',
@@ -20,6 +23,7 @@ export class HomePageComponent {
   constructor(
     private cd: ChangeDetectorRef,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
 
   onPet(): void {
@@ -63,5 +67,9 @@ export class HomePageComponent {
 
   onWalk(): void {
     this.router.navigate(['/walk']);
+  }
+
+  onLogout() {
+    this.store.dispatch(logout());
   }
 }

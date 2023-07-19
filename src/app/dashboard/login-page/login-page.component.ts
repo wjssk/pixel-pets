@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, State, Store } from '@ngrx/store';
-import { login } from '../../state/auth/auth.actions';
+import { login, logout } from '../../state/auth/auth.actions';
 import { Observable, of } from 'rxjs';
 import { AppState, AuthState } from '../../state/models/state';
 import { selectAuthErrors } from '../../state/auth/auth.selectors';
@@ -22,6 +22,10 @@ export class LoginPageComponent {
   loginError$: Observable<string | undefined> = of(undefined);
 
   formSubmitted = false;
+
+  ngOnInit(): void {
+    this.store.dispatch(logout());
+  }
 
   constructor(
     private router: Router,

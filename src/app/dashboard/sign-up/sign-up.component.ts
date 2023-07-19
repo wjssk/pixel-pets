@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { register } from '../../state/auth/auth.actions';
+import { logout, register } from '../../state/auth/auth.actions';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';

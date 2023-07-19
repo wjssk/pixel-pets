@@ -132,7 +132,6 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
-  res.redirect('/');
   res.status(200).json({ logout: true });
 };
 
@@ -144,8 +143,14 @@ exports.isAuthenticated = (req, res) => {
         console.log(err.message);
         res.status(400).json({ isAuthenticated: false });
       } else {
-        const user = await User.findById(decodedToken.id);
-        res.status(200).json({ isAuthenticated: true, user });
+        const user = await User.findById(decodedToken.id).select(
+          'username email level xp coins hasPet',
+        );
+        if (user) {
+          res.status(200).json({ isAuthenticated: true, user });
+        } else {
+          res.status(400).json({ isAuthenticated: false });
+        }
       }
     });
   } else {

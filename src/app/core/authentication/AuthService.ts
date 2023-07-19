@@ -33,6 +33,10 @@ export class AuthService {
     });
   }
 
+  logout(): Observable<any> {
+    return this.http.get('/api/logout', {});
+  }
+
   checkAuthStatus(): Observable<any> {
     return this.http.get('/api/check-auth');
   }

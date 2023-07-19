@@ -13,5 +13,5 @@ export const updateHasPetSuccess = createAction(
 
 export const updateHasPetFailure = createAction(
   '[User] Update Has Pet Failure',
-  props<{ error: any }>(),
+  props<{ error: string }>(),
 );
