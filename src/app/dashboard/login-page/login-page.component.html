@@ -7,7 +7,10 @@
         <input [(ngModel)]="loginForm.username" name='username' type='text' id='username' class='nes-input' [class.is-error]="formSubmitted && (loginError$ | async)" placeholder='username' required>
       </div>
       <div class='nes-field'>
-        <input [(ngModel)]="loginForm.password" name='password' type='password' id='password' class='nes-input' [class.is-error]="formSubmitted && (loginError$ | async)" placeholder='password' required />
+        <input [(ngModel)]="loginForm.password" name='password' type='password' id='password' class='nes-input' [class.is-error]="formSubmitted && (loginError$ | async)" [style.margin-bottom]="(formSubmitted && (loginError$ | async)) ? '0' : '3vh'" placeholder='password' required />
+        <p *ngIf="formSubmitted && (loginError$ | async) as error" class="error-message">
+          {{ error }}
+        </p>
       </div>
       <div class='bottom-section'>
         <label>
@@ -20,9 +23,6 @@
     <div class='buttons'>
       <button type='button' class='nes-btn login-btn' (click)='onLoginClick()'>Login</button>
       <button class='nes-btn signup-btn' (click)='onSignUpClick()'>Sign up</button>
-    </div>
-    <div *ngIf="loginError$ | async as error" class="error-message">
-      {{ error }}
     </div>
   </div>
 </div>

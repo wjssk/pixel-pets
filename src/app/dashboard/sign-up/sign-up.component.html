@@ -1,28 +1,28 @@
 <div class='container'>
   <h2>SIGN UP</h2>
   <form class='form-group' (submit)="onSignup()" #form="ngForm">
-    <div class='nes-field' style='position: relative;' [style.margin-bottom]="(formSubmitted && (emailError$ | async)) ? '0' : '3vh'">
+    <div class='nes-field' [style.margin-bottom]="(formSubmitted && (emailError$ | async)) ? '0' : '3vh'">
       <input [(ngModel)]="signupForm.email" name="email" type='text' id='email' class='nes-input' [class.is-error]="formSubmitted && (emailError$ | async)"
              [class.is-success]="formSubmitted && !(emailError$ | async)" placeholder='email' required>
       <p *ngIf="formSubmitted && (emailError$ | async) as error" class="error-message">
         {{ error }}
       </p>
     </div>
-    <div class='nes-field' style='position: relative;' [style.margin-bottom]="(formSubmitted && (usernameError$ | async)) ? '0' : '3vh'">
+    <div class='nes-field' [style.margin-bottom]="(formSubmitted && (usernameError$ | async)) ? '0' : '3vh'">
       <input [(ngModel)]="signupForm.username" name="username" type='text' id='username' class='nes-input' [class.is-error]="formSubmitted && (usernameError$ | async)"
              [class.is-success]="formSubmitted && !(usernameError$ | async)" placeholder='username' required>
       <p *ngIf="formSubmitted && (usernameError$ | async) as error" class="error-message">
         {{ error }}
       </p>
     </div>
-    <div class='nes-field' style='position: relative;' [style.margin-bottom]="(formSubmitted && (passwordError$ | async)) ? '0' : '3vh'">
+    <div class='nes-field' [style.margin-bottom]="(formSubmitted && (passwordError$ | async)) ? '0' : '3vh'">
       <input [(ngModel)]="signupForm.password" name="password" type='password' id='password' class='nes-input' [class.is-error]="formSubmitted && (passwordError$ | async)"
              [class.is-success]="formSubmitted && !(passwordError$ | async)" placeholder='password' required />
       <p *ngIf="formSubmitted && (passwordError$ | async) as error" class="error-message">
         {{ error }}
       </p>
     </div>
-    <div class='nes-field' style='position: relative; margin-bottom: 3vh;'>
+    <div class='nes-field' style='margin-bottom: 3vh;'>
       <input [(ngModel)]="signupForm.confirmPassword" name="confirmPassword" type='password' id='confirmPassword' class='nes-input' [class.is-error]="formSubmitted && (passwordError$ | async)"
              [class.is-success]="formSubmitted && !(passwordError$ | async)" placeholder='confirm password' required />
     </div>
