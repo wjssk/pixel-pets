@@ -30,7 +30,12 @@ const handleErrors = (err, customErrors) => {
 };
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  let { username, email, password, confirmPassword } = req.body;
+
+  username = username.trim();
+  email = email.trim();
+  password = password.trim();
+  confirmPassword = confirmPassword.trim();
 
   let errors = initializeErrors();
 
