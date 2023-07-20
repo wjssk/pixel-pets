@@ -1,2 +1,12 @@
 <p>choose-pet works!</p>
+
+<p *ngIf='user$ | async as user'>
+  {{'username: ' + user.username}}
+  {{'pet: ' + user.pet}}
+  {{'hasPet: ' + user.hasPet}}
+  {{'coins' + user.coins}}
+  {{'xp' + user.xp}}
+  {{'level' + user.level}}
+</p>
 <button (click)='onConfirm()'>Confirm</button>
+<button (click)='onLogout()'>Logout</button>

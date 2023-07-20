@@ -2,26 +2,33 @@
   <h1 class='title'>PIXEL PETS</h1>
   <div class='main-form'>
     <h2 class='login'>LOGIN</h2>
-    <form class='form-group' #form="ngForm">
+    <form class='form-group' #form='ngForm' (submit)='onLoginClick()'>
       <div class='nes-field'>
-        <input [(ngModel)]="loginForm.username" name='username' type='text' id='username' class='nes-input' [class.is-error]="formSubmitted && (loginError$ | async)" placeholder='username' required>
+        <input [(ngModel)]='loginForm.username' name='username' type='text' id='username' class='nes-input'
+               [class.is-error]='formSubmitted && (loginError$ | async)'
+               placeholder='username' (keydown.space)='$event.preventDefault()' required>
       </div>
       <div class='nes-field'>
-        <input [(ngModel)]="loginForm.password" name='password' type='password' id='password' class='nes-input' [class.is-error]="formSubmitted && (loginError$ | async)" [style.margin-bottom]="(formSubmitted && (loginError$ | async)) ? '0' : '3vh'" placeholder='password' required />
-        <p *ngIf="formSubmitted && (loginError$ | async) as error" class="error-message">
+        <input [(ngModel)]='loginForm.password' name='password' type='password' id='password' class='nes-input'
+               [class.is-error]='formSubmitted && (loginError$ | async)'
+               [style.margin-bottom]="(formSubmitted && (loginError$ | async)) ? '0' : '1.5vh'" placeholder='password'
+               (keydown.space)='$event.preventDefault()' required />
+        <p *ngIf='formSubmitted && (loginError$ | async) as error' class='error-message'>
           {{ error }}
         </p>
       </div>
       <div class='bottom-section'>
         <label>
-          <input [(ngModel)]="loginForm.rememberMe" name='rememberMe' type='checkbox' class='nes-checkbox' checked />
+          <input [(ngModel)]='loginForm.rememberMe' name='rememberMe' type='checkbox' class='nes-checkbox' checked />
           <span>Remember me</span>
         </label>
         <a href='#'>Forgot password?</a>
       </div>
+      <div class='buttons'>
+        <button type='submit' class='nes-btn login-btn'>Login</button>
+      </div>
     </form>
     <div class='buttons'>
-      <button type='button' class='nes-btn login-btn' (click)='onLoginClick()'>Login</button>
       <button class='nes-btn signup-btn' (click)='onSignUpClick()'>Sign up</button>
     </div>
   </div>

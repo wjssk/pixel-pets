@@ -30,7 +30,12 @@ const handleErrors = (err, customErrors) => {
 };
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  let { username, email, password, confirmPassword } = req.body;
+
+  username = username.trim();
+  email = email.trim();
+  password = password.trim();
+  confirmPassword = confirmPassword.trim();
 
   let errors = initializeErrors();
 
@@ -86,7 +91,17 @@ exports.registerUser = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    res.status(201).json({ user: user._id });
+    res.status(201).json({
+      user: {
+        username: user.username,
+        email: user.email,
+        level: user.level,
+        xp: user.xp,
+        coins: user.coins,
+        hasPet: user.hasPet,
+        pet: user.pet,
+      },
+    });
   } catch (error) {
     errors = handleErrors(error, errors);
     res.status(400).json({ errors });
@@ -110,6 +125,8 @@ exports.loginUser = async (req, res) => {
       res.status(400).json({ errors });
       return;
     }
+    const userToSend = user.toObject();
+    delete userToSend.password;
     const maxAge = rememberMe ? 7 * 24 * 60 * 60 : 5 * 60 * 60; // 7 days or 5 hour
     const token = jwt.sign({ id: user._id }, process.env.secret, {
       expiresIn: maxAge,
@@ -118,7 +135,17 @@ exports.loginUser = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    res.status(200).json({ user: user._id });
+    res.status(200).json({
+      user: {
+        username: userToSend.username,
+        email: userToSend.email,
+        level: userToSend.level,
+        xp: userToSend.xp,
+        coins: userToSend.coins,
+        hasPet: userToSend.hasPet,
+        pet: userToSend.pet,
+      },
+    });
   } catch (error) {
     errors = handleErrors(error, errors);
     res.status(400).json({ errors });
@@ -127,7 +154,6 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
-  res.redirect('/');
   res.status(200).json({ logout: true });
 };
 
@@ -139,8 +165,14 @@ exports.isAuthenticated = (req, res) => {
         console.log(err.message);
         res.status(400).json({ isAuthenticated: false });
       } else {
-        const user = await User.findById(decodedToken.id);
-        res.status(200).json({ isAuthenticated: true, user });
+        const user = await User.findById(decodedToken.id).select(
+          'username email level xp coins hasPet',
+        );
+        if (user) {
+          res.status(200).json({ isAuthenticated: true, user });
+        } else {
+          res.status(400).json({ isAuthenticated: false });
+        }
       }
     });
   } else {

@@ -1,5 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppState } from '../../state/models/state';
+import { Store } from '@ngrx/store';
+import { logout } from '../../state/auth/auth.actions';
 
 @Component({
   selector: 'app-home-page',
@@ -20,6 +23,7 @@ export class HomePageComponent {
   constructor(
     private cd: ChangeDetectorRef,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
 
   onPet(): void {
@@ -36,7 +40,6 @@ export class HomePageComponent {
     this.timer = setTimeout(() => {
       this.imageSource = 'assets/images/smutny.png';
     }, 500);
-    console.log(this.petStartTime);
     if (this.petStartTime) {
       let petDuration = new Date().getTime() - this.petStartTime.getTime();
       if (petDuration > 3000 && this.timeSinceLastCoin() > 10000) {
@@ -57,11 +60,11 @@ export class HomePageComponent {
     }
   }
 
-  ngOnInit(): void {
-    console.log('HomePageComponent');
-  }
-
   onWalk(): void {
     this.router.navigate(['/walk']);
+  }
+
+  onLogout() {
+    this.store.dispatch(logout());
   }
 }

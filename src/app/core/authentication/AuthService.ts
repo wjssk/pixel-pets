@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user-related';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,11 +13,13 @@ export class AuthService {
     password: string,
     rememberMe: boolean,
   ): Observable<User> {
-    return this.http.post<User>('/api/login', {
-      username,
-      password,
-      rememberMe,
-    });
+    return this.http
+      .post<any>('/api/login', {
+        username,
+        password,
+        rememberMe,
+      })
+      .pipe(map((response) => response.user));
   }
 
   register(
@@ -25,12 +28,18 @@ export class AuthService {
     password: string,
     confirmPassword: string,
   ): Observable<User> {
-    return this.http.post<User>('/api/register', {
-      username,
-      email,
-      password,
-      confirmPassword,
-    });
+    return this.http
+      .post<any>('/api/register', {
+        username,
+        email,
+        password,
+        confirmPassword,
+      })
+      .pipe(map((response) => response.user));
+  }
+
+  logout(): Observable<any> {
+    return this.http.get('/api/logout', {});
   }
 
   checkAuthStatus(): Observable<any> {

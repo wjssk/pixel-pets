@@ -6,7 +6,7 @@ import { User } from '../../shared/models/user-related';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  updateHasPet(id: string): Observable<User> {
-    return this.http.put<User>('/api/update-has-pet', { id });
+  updateHasPet(id: string, hasPet: boolean): Observable<User> {
+    return this.http.put<User>(`/api/user/${id}/update-has-pet`, { hasPet });
   }
 }
