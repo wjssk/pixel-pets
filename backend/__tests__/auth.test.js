@@ -3,6 +3,7 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const app = require('../app');
+const jwt = require('jsonwebtoken');
 const { User } = require('../models/user');
 
 describe('Auth Tests', () => {
@@ -288,8 +289,6 @@ describe('Auth Tests', () => {
 
   // ALL LOGOUT TESTS
 
-  // ALL LOGOUT TESTS
-
   // Correct Logout
   test('should logout the existing user successfully', async () => {
     const loginRes = await request(app).post('/api/login').send({
@@ -297,14 +296,12 @@ describe('Auth Tests', () => {
       password: 'Test@1234',
     });
 
-    // Get the jwt cookie from the set-cookie header
     const jwtCookie = loginRes.headers['set-cookie'][0];
 
     const res = await request(app).get('/api/logout').set('Cookie', jwtCookie);
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('logout', true);
-    // Check that the jwt cookie is now empty
     expect(res.headers['set-cookie'][0]).toMatch(/^jwt=;/);
   });
 
@@ -317,7 +314,6 @@ describe('Auth Tests', () => {
       password: 'Test@1234',
     });
 
-    // Get the jwt cookie from the set-cookie header
     const jwtCookie = loginRes.headers['set-cookie'][0];
 
     const res = await request(app)
@@ -333,6 +329,30 @@ describe('Auth Tests', () => {
   // Incorrect isAuthenticated
   test('should return isAuthenticated false for not logged in user', async () => {
     const res = await request(app).get('/api/check-auth');
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('isAuthenticated', false);
+  });
+
+  // Incorrect isAuthenticated - malformed JWT
+  test('should return isAuthenticated false for malformed JWT', async () => {
+    const res = await request(app)
+      .get('/api/check-auth')
+      .set('Cookie', 'jwt=malformedToken');
+
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('isAuthenticated', false);
+  });
+
+  // Incorrect isAuthenticated - valid JWT, user not found
+  test('should return isAuthenticated false for non-existent user', async () => {
+    const nonExistentUserId = new mongoose.Types.ObjectId();
+    const fakeToken = jwt.sign({ id: nonExistentUserId }, process.env.secret, {
+      expiresIn: '1h',
+    });
+    const res = await request(app)
+      .get('/api/check-auth')
+      .set('Cookie', `jwt=${fakeToken}`);
+
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('isAuthenticated', false);
   });
