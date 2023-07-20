@@ -40,7 +40,6 @@ export class HomePageComponent {
     this.timer = setTimeout(() => {
       this.imageSource = 'assets/images/smutny.png';
     }, 500);
-    console.log(this.petStartTime);
     if (this.petStartTime) {
       let petDuration = new Date().getTime() - this.petStartTime.getTime();
       if (petDuration > 3000 && this.timeSinceLastCoin() > 10000) {
@@ -59,10 +58,6 @@ export class HomePageComponent {
     } else {
       return Infinity;
     }
-  }
-
-  ngOnInit(): void {
-    console.log('HomePageComponent');
   }
 
   onWalk(): void {

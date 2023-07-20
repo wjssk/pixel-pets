@@ -33,14 +33,8 @@ export class LoginPageComponent {
   ) {}
   onLoginClick(): void {
     this.formSubmitted = true;
-    const errors$ = this.store.pipe(
-      select(selectAuthErrors),
-      tap((errors) => console.log('errors from selector:', errors)),
-    );
-    this.loginError$ = errors$.pipe(
-      map((errors) => errors?.login),
-      tap((loginError) => console.log('login error:', loginError)),
-    );
+    const errors$ = this.store.pipe(select(selectAuthErrors));
+    this.loginError$ = errors$.pipe(map((errors) => errors?.login));
     this.store.dispatch(login(this.loginForm));
   }
 

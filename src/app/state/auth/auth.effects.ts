@@ -30,7 +30,7 @@ export class AuthEffects {
             action.confirmPassword,
           )
           .pipe(
-            map((user) => registerSuccess({ user })),
+            map((response) => registerSuccess({ user: response })), // Extract user field from response
             catchError((error) => {
               console.error(error);
               const errors: AuthErrors = {
@@ -39,6 +39,26 @@ export class AuthEffects {
                 password: error.error.errors.password,
               };
               return of(registerFailure({ error: errors }));
+            }),
+          ),
+      ),
+    ),
+  );
+
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(login),
+      mergeMap((action) =>
+        this.authService
+          .login(action.username, action.password, action.rememberMe)
+          .pipe(
+            map((response) => loginSuccess({ user: response })), // Extract user field from response
+            catchError((error) => {
+              console.error(error);
+              const errors: AuthErrors = {
+                login: error.error.errors.login,
+              };
+              return of(loginFailure({ error: errors }));
             }),
           ),
       ),
@@ -54,26 +74,6 @@ export class AuthEffects {
         }),
       ),
     { dispatch: false },
-  );
-
-  login$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(login),
-      mergeMap((action) =>
-        this.authService
-          .login(action.username, action.password, action.rememberMe)
-          .pipe(
-            map((user) => loginSuccess({ user })),
-            catchError((error) => {
-              console.error(error);
-              const errors: AuthErrors = {
-                login: error.error.errors.login,
-              };
-              return of(loginFailure({ error: errors }));
-            }),
-          ),
-      ),
-    ),
   );
 
   loginSuccess$ = createEffect(

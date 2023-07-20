@@ -7,3 +7,8 @@ export const selectAuthErrors = createSelector(
   selectAuthState,
   (state: AuthState) => state.errors,
 );
+
+export const selectUser = createSelector(
+  (state: AppState) => state.auth.user,
+  (user) => user,
+);

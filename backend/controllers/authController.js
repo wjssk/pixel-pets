@@ -91,7 +91,17 @@ exports.registerUser = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    res.status(201).json({ user: user._id });
+    res.status(201).json({
+      user: {
+        username: user.username,
+        email: user.email,
+        level: user.level,
+        xp: user.xp,
+        coins: user.coins,
+        hasPet: user.hasPet,
+        pet: user.pet,
+      },
+    });
   } catch (error) {
     errors = handleErrors(error, errors);
     res.status(400).json({ errors });
@@ -115,6 +125,8 @@ exports.loginUser = async (req, res) => {
       res.status(400).json({ errors });
       return;
     }
+    const userToSend = user.toObject();
+    delete userToSend.password;
     const maxAge = rememberMe ? 7 * 24 * 60 * 60 : 5 * 60 * 60; // 7 days or 5 hour
     const token = jwt.sign({ id: user._id }, process.env.secret, {
       expiresIn: maxAge,
@@ -123,7 +135,17 @@ exports.loginUser = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    res.status(200).json({ user: user._id });
+    res.status(200).json({
+      user: {
+        username: userToSend.username,
+        email: userToSend.email,
+        level: userToSend.level,
+        xp: userToSend.xp,
+        coins: userToSend.coins,
+        hasPet: userToSend.hasPet,
+        pet: userToSend.pet,
+      },
+    });
   } catch (error) {
     errors = handleErrors(error, errors);
     res.status(400).json({ errors });

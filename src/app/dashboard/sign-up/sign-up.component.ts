@@ -33,25 +33,13 @@ export class SignUpComponent {
   onSignup() {
     this.formSubmitted = true;
 
-    const errors$ = this.store.pipe(
-      select(selectAuthErrors),
-      tap((errors) => console.log('errors from selector:', errors)),
-    );
+    const errors$ = this.store.pipe(select(selectAuthErrors));
 
-    this.usernameError$ = errors$.pipe(
-      map((errors) => errors?.username),
-      tap((usernameError) => console.log('username error:', usernameError)),
-    );
+    this.usernameError$ = errors$.pipe(map((errors) => errors?.username));
 
-    this.emailError$ = errors$.pipe(
-      map((errors) => errors?.email),
-      tap((emailError) => console.log('email error:', emailError)),
-    );
+    this.emailError$ = errors$.pipe(map((errors) => errors?.email));
 
-    this.passwordError$ = errors$.pipe(
-      map((errors) => errors?.password),
-      tap((passwordError) => console.log('password error:', passwordError)),
-    );
+    this.passwordError$ = errors$.pipe(map((errors) => errors?.password));
 
     this.store.dispatch(
       register({
